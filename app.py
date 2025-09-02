@@ -107,7 +107,11 @@ for col in selected_columns:
         draw = ImageDraw.Draw(temp_img)
         sample_text = f"{text_prefix}{df.iloc[0][col]}{text_suffix}"
         font = get_font_style(font_file, font_size, font_choice, built_in_fonts, selected_builtin_font, bold, italic)
-        text_size = draw.textsize(sample_text, font=font)
+        
+        # Updated: Use textbbox instead of textsize
+        bbox = draw.textbbox((0, 0), sample_text, font=font)
+        text_size = (bbox[2] - bbox[0], bbox[3] - bbox[1])
+        
         rect_x, rect_y = 50, 50
         draw.rectangle([rect_x, rect_y, rect_x + text_size[0], rect_y + text_size[1]], outline="red", width=2)
         draw.line([temp_img.width // 2, 0, temp_img.width // 2, temp_img.height], fill="blue", width=1)
@@ -157,6 +161,12 @@ if st.button("👀 Preview First Certificate"):
         for box in boxes:
             text = f"{box['prefix']}{sample_row[col]}{box['suffix']}"
             font = get_font_style(font_file, box["size"], font_choice, built_in_fonts, selected_builtin_font, box["bold"], box["italic"])
+            
+            # Updated: compute text size if needed
+            bbox = draw.textbbox((0, 0), text, font=font)
+            text_width = bbox[2] - bbox[0]
+            text_height = bbox[3] - bbox[1]
+            
             x, y = box["pos"]
             if box["bold"] and font_choice == "Uploaded":
                 draw.text((x, y), text, font=font, fill=box["color"])
@@ -176,6 +186,12 @@ if st.button("🎉 Generate All Certificates"):
                 for box in boxes:
                     text = f"{box['prefix']}{row[col]}{box['suffix']}"
                     font = get_font_style(font_file, box["size"], font_choice, built_in_fonts, selected_builtin_font, box["bold"], box["italic"])
+                    
+                    # Updated: compute text size if needed
+                    bbox = draw.textbbox((0, 0), text, font=font)
+                    text_width = bbox[2] - bbox[0]
+                    text_height = bbox[3] - bbox[1]
+                    
                     x, y = box["pos"]
                     if box["bold"] and font_choice == "Uploaded":
                         draw.text((x, y), text, font=font, fill=box["color"])
