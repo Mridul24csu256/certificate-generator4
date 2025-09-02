@@ -121,7 +121,7 @@ for col in selected_columns:
         canvas_result = st_canvas(
             fill_color="rgba(0,0,0,0)",
             stroke_width=1,
-            background_image=temp_img,
+            background_image=temp_img.convert("RGBA"),  # <-- ensure RGBA
             update_streamlit=True,
             height=template.height,
             width=template.width,
