@@ -27,7 +27,7 @@ def get_font_style(font_file, size, font_choice, built_in_fonts=None, selected_b
             ("Courier New", False, False): "fonts/courier.ttf",
             ("Courier New", True, False): "fonts/courier_bold.ttf",
             ("Courier New", False, True): "fonts/courier_italic.ttf",
-            ("Courier New", True, True): "fonts/https://github.com/Mridul24csu256/certificate-generator4/blob/main/fonts/Courier%20New%20Bold%20Italic.ttf",
+            ("Courier New", True, True): "fonts/courier_bold_italic.ttf",
         }
         font_path = font_map.get((selected_builtin_font, bold, italic), "fonts/arial.ttf")
         return ImageFont.truetype(font_path, size)
