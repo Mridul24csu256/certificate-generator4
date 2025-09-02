@@ -54,7 +54,7 @@ template_file = st.file_uploader("Upload Certificate Template (PNG/JPG)", type=[
 if not template_file:
     st.stop()
 template = Image.open(template_file).convert("RGB")
-st.image(template, caption="Certificate Template Preview", use_column_width=True)
+st.image(template, caption="Certificate Template Preview", use_container_width=True)
 
 # ------------------ Font Selection ------------------
 font_choice = st.radio("Choose Font Source", ["Uploaded", "Built-in"])
@@ -121,7 +121,7 @@ for col in selected_columns:
         canvas_result = st_canvas(
             fill_color="rgba(0,0,0,0)",
             stroke_width=1,
-            background_image=temp_img.convert("RGBA"),  # <-- ensure RGBA
+            background_image=temp_img.convert("RGBA"),  # ensure RGBA
             update_streamlit=True,
             height=template.height,
             width=template.width,
@@ -173,7 +173,7 @@ if st.button("👀 Preview First Certificate"):
                 draw.text((x+1, y), text, font=font, fill=box["color"])
             else:
                 draw.text((x, y), text, font=font, fill=box["color"])
-    st.image(cert, caption="Preview Certificate", use_column_width=True)
+    st.image(cert, caption="Preview Certificate", use_container_width=True)
 
 # ------------------ Generate All Certificates ------------------
 if st.button("🎉 Generate All Certificates"):
